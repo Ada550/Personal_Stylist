@@ -1090,7 +1090,9 @@ let scrapeProducts = [
 }
         
         async function fetchProducts() {
-    const gender = document.getElementById('gender').value;
+    const genderSelect = document.getElementById('gender').value;
+    const genderMap = { 'male': 'men', 'female': 'women', 'other': 'men' };
+    const gender = genderMap[genderSelect] || 'men';
     const filtered = scrapeProducts.filter(p => p.gender === gender);
     const upperBody = filtered.filter(p => p.category === 'upper_body');
     const lowerBody = filtered.filter(p => p.category === 'lower_body');
