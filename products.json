@@ -21,7 +21,7 @@
     "category": "lower_body",
     "price": 249.99,
     "site": "ZARA",
-    "image": "https://images.unsplash.com/photo-1542272604-787c3835535a?w=400"
+    "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"
   },
   {
     "id": "zara_4",
@@ -37,7 +37,7 @@
     "category": "lower_body",
     "price": 199.99,
     "site": "ZARA",
-    "image": "https://images.unsplash.com/photo-1594631252845-29fc4cc8dbfe?w=400"
+    "image": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400"
   },
   {
     "id": "hm_1",
@@ -85,7 +85,7 @@
     "category": "upper_body",
     "price": 179.99,
     "site": "Stradivarius",
-    "image": "https://images.unsplash.com/photo-1594938328625-1c7f4e8845a8?w=400"
+    "image": "https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=400"
   },
   {
     "id": "stradivarius_2",
@@ -109,6 +109,6 @@
     "category": "upper_body",
     "price": 119.99,
     "site": "Stradivarius",
-    "image": "https://images.unsplash.com/photo-1604176354204-a92664222f9e?w=400"
+    "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=400"
   }
 ]
