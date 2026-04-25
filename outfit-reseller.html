@@ -1167,6 +1167,8 @@ let scrapeProducts = [
             document.getElementById('loadingProducts').style.display = 'block';
             document.getElementById('productList').innerHTML = '';
             
+            scrapedProducts = await fetchProducts();
+            
             document.getElementById('loadingProducts').style.display = 'none';
             
             const list = document.getElementById('productList');
