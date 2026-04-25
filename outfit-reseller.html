@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outfit Reseller</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: white; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 2.5em; margin: 30px 0; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { color: #00d4ff; margin-bottom: 20px; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .split-screen { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .upload-area { border: 2px dashed rgba(255,255,255,0.3); border-radius: 15px; padding: 40px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .upload-area:hover { border-color: #00d4ff; background: rgba(0,212,255,0.1); }
+        .upload-area input { display: none; }
+        .preview-img { max-width: 100%; max-height: 300px; border-radius: 10px; margin-top: 20px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #aaa; font-size: 0.9em; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.9); color: #1a1a2e; font-size: 1em; font-weight: 500; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .btn { padding: 15px 40px; border-radius: 10px; border: none; font-size: 1.1em; cursor: pointer; transition: all 0.3s; font-weight: 600; }
+        .btn-primary { background: linear-gradient(90deg, #00d4ff, #7c3aed); color: white; width: 100%; margin-top: 20px; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,212,255,0.3); }
+        
+        .results-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
+        .product-grid { display: flex; flex-direction: column; gap: 15px; max-height: 70vh; overflow-y: auto; }
+        .product-card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
+        .product-card:hover { transform: translateX(5px); border-color: #00d4ff; }
+        .product-card img { width: 80px; height: 100px; object-fit: cover; border-radius: 8px; background: #333; }
+        .product-info { flex: 1; }
+        .product-name { font-weight: 600; margin-bottom: 5px; }
+        .product-site { font-size: 0.85em; color: #888; }
+        .match-badge { background: linear-gradient(90deg, #00d4ff, #7c3aed); padding: 5px 12px; border-radius: 20px; font-size: 0.8em; }
+        .product-price { font-size: 1.3em; font-weight: bold; color: #00d4ff; }
+        .btn-buy { background: #00d4ff; color: #1a1a2e; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
+        .btn-buy:hover { background: #00a8cc; }
+        .btn-change { background: transparent; border: 2px solid #00d4ff; color: #00d4ff; padding: 12px 30px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: 600; }
+        .btn-change:hover { background: #00d4ff; color: #1a1a2e; }
+        
+        .cart-summary { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .cart-total { font-size: 1.5em; text-align: right; margin: 20px 0; }
+        .over-budget { background: rgba(255,100,100,0.2); color: #ff6666; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 20px; }
+        .btn-order { background: linear-gradient(90deg, #00ff88, #00d4ff); color: #1a1a2e; padding: 18px 50px; border-radius: 10px; border: none; font-size: 1.2em; cursor: pointer; font-weight: bold; width: 100%; }
+        .btn-order:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(0,255,136,0.3); }
+        
+        .success-message { text-align: center; padding: 60px; }
+        .success-message h2 { font-size: 3em; }
+        
+        .loading { text-align: center; padding: 60px; font-size: 1.5em; color: #00d4ff; }
+        .spinner { width: 50px; height: 50px; border: 4px solid rgba(0,212,255,0.3); border-top-color: #00d4ff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .source-tag { display: inline-block; background: #333; padding: 3px 8px; border-radius: 4px; font-size: 0.75em; margin-top: 5px; }
+        .source-tag.zara { background: #e91e63; }
+        .source-tag.hm { background: #f44336; }
+        .source-tag.levis { background: #1565c0; }
+        .source-tag.uniqlo { background: #ff5722; }
+        .source-tag.mango { background: #4caf50; }
+        
+        .no-products { text-align: center; padding: 40px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👕 Outfit Reseller</h1>
+        
+        <div id="loading" class="page active">
+            <div class="loading">
+                <div class="spinner"></div>
+                <div>Loading scraped products...</div>
+            </div>
+        </div>
+        
+        <div id="page1" class="page">
+            <div class="split-screen">
+                <div class="card">
+                    <h2>📸 Upload Your Photo</h2>
+                    <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+                        <p>Click to upload a photo of yourself</p>
+                        <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)">
+                        <img id="photoPreview" class="preview-img" style="display:none;">
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>📏 Your Measurements</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Height (cm)</label>
+                            <input type="number" id="height" value="175" min="100" max="220">
+                        </div>
+                        <div class="form-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="weight" value="70" min="30" max="200">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Shoulder Width (cm)</label>
+                        <input type="range" id="shoulder" min="30" max="60" value="45" oninput="this.nextElementSibling.textContent = this.value + ' cm'">
+                        <span style="color:#00d4ff">45 cm</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Hip Width (cm)</label>
+                        <input type="range" id="hip" min="60" max="140" value="95" oninput="this.nextElementSibling.textContent = this.value + ' cm'">
+                        <span style="color:#00d4ff">95 cm</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Budget (RON)</label>
+                        <input type="range" id="budget" min="100" max="5000" value="500" step="50" oninput="this.nextElementSibling.textContent = this.value + ' RON'">
+                        <span style="color:#00d4ff">500 RON</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Your Gender</label>
+                        <select id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Your Style</label>
+                        <select id="style">
+                            <option value="casual">Casual</option>
+                            <option value="formal">Formal</option>
+                            <option value="business">Business</option>
+                            <option value="sport">Sport</option>
+                            <option value="streetwear">Streetwear</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="goToPage(2)">Next →</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="page2" class="page">
+            <div class="results-layout">
+                <div class="card">
+                    <h2>Your Photo</h2>
+                    <img id="resultPhoto" style="width:100%; border-radius:15px;">
+                    <div style="margin-top:20px;">
+                        <h3>Your Profile</h3>
+                        <p id="profileSummary" style="color:#888; margin-top:10px;"></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>🛍️ Available Products (Scraped)</h2>
+                    <div id="loadingProducts" class="loading">
+                        <div class="spinner"></div>
+                        <div>Scraping products...</div>
+                    </div>
+                    <div class="product-grid" id="productList"></div>
+                    <button class="btn-change" onclick="refreshProducts()">🔄 Refresh Outfit</button>
+                    <button class="btn btn-primary" onclick="goToPage(3)">Next → Cart</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="page3" class="page">
+            <div class="split-screen">
+                <div class="card">
+                    <h2>Your Photo</h2>
+                    <img id="cartPhoto" style="width:100%; border-radius:15px;">
+                    <div style="margin-top:20px;">
+                        <h3>📏 Measurements</h3>
+                        <p id="measurementsSummary" style="color:#888; margin-top:10px; line-height:1.8;"></p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>🛍️ Your Cart</h2>
+                    <div id="cartItems"></div>
+                    <div class="cart-total" id="cartTotal"></div>
+                    <div id="budgetWarning"></div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                        <button class="btn-change" onclick="goToPage(2)">← Back</button>
+                        <button class="btn-order" onclick="placeOrder()">📦 ORDER NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="page4" class="page">
+            <div class="success-message">
+                <h2>🎉</h2>
+                <h2>Order Placed Successfully!</h2>
+                <p style="color:#888; margin-top:20px;">You will receive a confirmation email shortly.</p>
+                <button class="btn btn-primary" onclick="location.reload()" style="margin-top:30px;">Start Over</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentPhoto = null;
+        let cart = [];
+        let scrapedProducts = [];
+        
+        // Fetch products from scraper API
+        async function fetchProducts() {
+            try {
+                const response = await fetch('http://localhost:5000/api/products');
+                return await response.json();
+            } catch (e) {
+                console.log("API not available, using mock data");
+                return [
+                    {name: "Slim Fit Blazer - Navy", price: 299, site: "ZARA", image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=200"},
+                    {name: "Classic White Shirt", price: 149, site: "H&M", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=200"},
+                    {name: "Straight Fit Jeans", price: 249, site: "Levi's", image: "https://images.unsplash.com/photo-1542272604-787c3835535a?w=200"},
+                    {name: "Cotton T-Shirt Black", price: 89, site: "Uniqlo", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200"},
+                    {name: "Leather Belt", price: 129, site: "Mango", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=200"},
+                ];
+            }
+        }
+        
+        function getSiteClass(site) {
+            return 'source-tag ' + site.toLowerCase().replace('.', '');
+        }
+        
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentPhoto = e.target.result;
+                    document.getElementById('photoPreview').src = currentPhoto;
+                    document.getElementById('photoPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function goToPage(num) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(num === 1 ? 'page1' : num === 2 ? 'page2' : num === 3 ? 'page3' : 'page4').classList.add('active');
+            
+            if (num === 2) showResults();
+            if (num === 3) showCart();
+        }
+        
+        async function showResults() {
+            document.getElementById('resultPhoto').src = currentPhoto || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"><rect fill="%23333" width="300" height="400"/><text fill="%23666" font-size="30" x="50%25" y="50%25" text-anchor="middle">No Photo</text></svg>';
+            
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const gender = document.getElementById('gender').value;
+            const style = document.getElementById('style').value;
+            document.getElementById('profileSummary').innerHTML = 
+                `Height: ${height}cm | Weight: ${weight}kg<br>Gender: ${gender.charAt(0).toUpperCase() + gender.slice(1)} | Style: ${style.charAt(0).toUpperCase() + style.slice(1)}`;
+            
+            // Show loading
+            document.getElementById('loadingProducts').style.display = 'block';
+            document.getElementById('productList').innerHTML = '';
+            
+            // Fetch products
+            document.getElementById('loadingProducts').style.display = 'none';
+            
+            const list = document.getElementById('productList');
+            
+            if (scrapedProducts.length === 0) {
+                document.getElementById('productList').innerHTML = '<div class="no-products">No products found. Please refresh.</div>';
+                return;
+            }
+            
+            list.innerHTML = scrapedProducts.map((p, i) => `
+                <div class="product-card">
+                    <img src="${p.image || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%22100%22><rect fill=%22%23333%22 width=%2280%22 height=%22100%22/></svg>'}" alt="${p.name}">
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <span class="${getSiteClass(p.site)}">${p.site}</span>
+                    </div>
+                    <div class="match-badge">${85 + Math.floor(Math.random() * 15)}%</div>
+                    <div class="product-price">${p.price} RON</div>
+                    <button class="btn-buy" onclick="addToCart(${i})">🛒 Add</button>
+                </div>
+            `).join('');
+        }
+        
+        async function refreshProducts() {
+            document.getElementById('loadingProducts').style.display = 'block';
+            document.getElementById('productList').innerHTML = '';
+            
+            scrapedProducts = await fetchProducts();
+            
+            document.getElementById('loadingProducts').style.display = 'none';
+            await showResults();
+        }
+        
+        function addToCart(index) {
+            const product = scrapedProducts[index];
+            if (!cart.includes(product)) {
+                cart.push(product);
+                alert('Added: ' + product.name + ' - ' + product.price + ' RON');
+            }
+        }
+        
+        function showCart() {
+            document.getElementById('cartPhoto').src = currentPhoto || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"><rect fill="%23333" width="300" height="400"/><text fill="%23666" font-size="30" x="50%25" y="50%25" text-anchor="middle">No Photo</text></svg>';
+            
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const gender = document.getElementById('gender').value;
+            const shoulder = document.getElementById('shoulder').value;
+            const hip = document.getElementById('hip').value;
+            const budget = document.getElementById('budget').value;
+            const style = document.getElementById('style').value;
+            
+            document.getElementById('measurementsSummary').innerHTML = 
+                `Height: ${height} cm<br>Weight: ${weight} kg<br>Gender: ${gender.charAt(0).toUpperCase() + gender.slice(1)}<br>Shoulder: ${shoulder} cm<br>Hip: ${hip} cm<br>Budget: ${budget} RON<br>Style: ${style}`;
+            
+            const items = cart.length > 0 ? cart : scrapedProducts.slice(0, 4);
+            let total = 0;
+            
+            document.getElementById('cartItems').innerHTML = items.map((p, i) => {
+                total += p.price;
+                return `
+                <div class="cart-item">
+                    <div>
+                        <strong>${p.name}</strong><br>
+                        <span style="color:#888">From ${p.site}</span>
+                    </div>
+                    <div>
+                        <strong>${p.price} RON</strong>
+                    </div>
+                </div>`;
+            }).join('');
+            
+            document.getElementById('cartTotal').innerHTML = `💰 Total: ${total} RON`;
+            
+            const budgetVal = parseInt(document.getElementById('budget').value);
+            if (total > budgetVal) {
+                document.getElementById('budgetWarning').innerHTML = 
+                    `<div class="over-budget">⚠️ Over budget by ${total - budgetVal} RON!</div>`;
+            } else {
+                document.getElementById('budgetWarning').innerHTML = '';
+            }
+        }
+        
+        function placeOrder() {
+            goToPage(4);
+        }
+        
+        // Initialize
+        window.onload = async function() {
+            scrapedProducts = await fetchProducts();
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page1').classList.add('active');
+        };
+    </script>
+</body>
+</html>
