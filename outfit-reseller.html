@@ -1052,51 +1052,61 @@
         }
         
 let scrapeProducts = [
-            [
-                {name: "Slim Fit Blazer - Navy", price: 299, site: "ZARA", image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=200"},
-                {name: "Classic White Shirt", price: 149, site: "H&M", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=200"},
-                {name: "Straight Fit Jeans", price: 249, site: "Levi's", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=200"},
-                {name: "Cotton T-Shirt Black", price: 89, site: "Uniqlo", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200"},
-            ],
-            [
-                {name: "Oversized Blazer - Grey", price: 349, site: "ZARA", image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=200"},
-                {name: "Linen Shirt - Beige", price: 179, site: "H&M", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=200"},
-                {name: "Slim Jeans - Dark", price: 299, site: "Levi's", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=200"},
-                {name: "Basic T-Shirt White", price: 59, site: "Uniqlo", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200"},
-            ],
-            [
-                {name: "Wool Coat - Beige", price: 449, site: "ZARA", image: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=200"},
-                {name: "Oxford Shirt - Blue", price: 199, site: "H&M", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=200"},
-                {name: "Chino Trousers", price: 179, site: "Levi's", image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=200"},
-                {name: "Striped T-Shirt", price: 79, site: "Uniqlo", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200"},
-            ],
-            [
-                {name: "Cropped Jacket", price: 179, site: "Stradivarius", image: "https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=200"},
-                {name: "Denim Shirt", price: 159, site: "H&M", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=200"},
-                {name: "High Waist Jeans", price: 159, site: "Stradivarius", image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=200"},
-                {name: "Graphic Tee", price: 99, site: "H&M", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=200"},
-            ]
-        ];
+  {name: "Cotton Regular-Fit Shirt", price: 24.99, site: "H&M", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400", url: "https://www2.hm.com/en_us/men/shirts.html", gender: "men", category: "upper_body"},
+  {name: "Slim-Fit Chino Pants", price: 39.99, site: "H&M", image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400", url: "https://www2.hm.com/en_us/men/trousers.html", gender: "men", category: "lower_body"},
+  {name: "Crew-Neck Sweatshirt", price: 34.99, site: "H&M", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400", url: "https://www2.hm.com/en_us/men/hoodies-sweatshirts.html", gender: "men", category: "upper_body"},
+  {name: "Slim-Fit Denim Jeans", price: 29.99, site: "H&M", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400", url: "https://www2.hm.com/en_us/men/jeans.html", gender: "men", category: "lower_body"},
+  {name: "Regular-Fit Polo Shirt", price: 19.99, site: "H&M", image: "https://images.unsplash.com/photo-15867901708dec16d4049613f0e4e1d3?w=400", url: "https://www2.hm.com/en_us/men/polo-shirts.html", gender: "men", category: "upper_body"},
+  {name: "Cotton Cargo Pants", price: 44.99, site: "H&M", image: "https://images.unsplash.com/photo-1624378439575-d8705ad7fd80?w=400", url: "https://www2.hm.com/en_us/men/trousers.html", gender: "men", category: "lower_body"},
+  {name: "Oversized Hoodie", price: 39.99, site: "H&M", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400", url: "https://www2.hm.com/en_us/men/hoodies-sweatshirts.html", gender: "men", category: "upper_body"},
+  {name: "Tailored Slim-Fit Blazer", price: 89.99, site: "H&M", image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400", url: "https://www2.hm.com/en_us/men/blazers.html", gender: "men", category: "outerwear"},
+  {name: "Printed Casual Shirt", price: 29.99, site: "H&M", image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400", url: "https://www2.hm.com/en_us/men/shirts.html", gender: "men", category: "upper_body"},
+  {name: "Straight-Leg Chino Pants", price: 34.99, site: "H&M", image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=400", url: "https://www2.hm.com/en_us/men/trousers.html", gender: "men", category: "lower_body"},
+  {name: "Bubble-Hem Jacket", price: 49.99, site: "H&M", image: "https://image.hm.com/assets/hm/61/a0/61a028b4d3ca94efb0d90f0ce52f9db719ff0f8f.jpg", url: "https://www2.hm.com/en_us/productpage.1337020001.html", gender: "women", category: "outerwear"},
+  {name: "Scalloped-Edge Jacket", price: 47.99, site: "H&M", image: "https://image.hm.com/assets/hm/52/89/528964c49825827f93ec9b5739eb0b785ba2434a.jpg", url: "https://www2.hm.com/en_us/productpage.1323148002.html", gender: "women", category: "outerwear"},
+  {name: "Balloon-Sleeved Modal Jacket", price: 49.99, site: "H&M", image: "https://image.hm.com/assets/hm/cb/84/cb843cd15fe1a9d22826bf3094467c135bf6f132.jpg", url: "https://www2.hm.com/en_us/productpage.1342205002.html", gender: "women", category: "outerwear"},
+  {name: "Trench-Look Cotton Jacket", price: 44.99, site: "H&M", image: "https://image.hm.com/assets/hm/12/c9/12c92869309407b6ffafd4e25e66c0d135c8cbb1.jpg", url: "https://www2.hm.com/en_us/productpage.1318411002.html", gender: "women", category: "outerwear"},
+  {name: "Printed Jacket", price: 19.99, site: "H&M", image: "https://image.hm.com/assets/hm/55/b7/55b73c7fdc15427ad743e9bb285b00478c1f732c.jpg", url: "https://www2.hm.com/en_us/productpage.1275342006.html", gender: "women", category: "outerwear"},
+  {name: "Eyelet-Embroidered Jacket", price: 44.99, site: "H&M", image: "https://image.hm.com/assets/hm/b8/33/b83367fa0e8d225ac59beec45416348a0584bdfe.jpg", url: "https://www2.hm.com/en_us/productpage.1325002001.html", gender: "women", category: "outerwear"},
+  {name: "Oversized Jacket", price: 84.99, site: "H&M", image: "https://image.hm.com/assets/hm/10/da/10da151ae6289abf0576b790f2141aee70385c4a.jpg", url: "https://www2.hm.com/en_us/productpage.1341741001.html", gender: "women", category: "outerwear"},
+  {name: "Twill Jacket with Collar", price: 54.99, site: "H&M", image: "https://image.hm.com/assets/hm/03/5b/035b6ba4af5fbd2ce7bfdf8ea8063cd229cae285.jpg", url: "https://www2.hm.com/en_us/productpage.1318386001.html", gender: "women", category: "outerwear"},
+  {name: "Twill Jacket", price: 39.99, site: "H&M", image: "https://image.hm.com/assets/hm/11/7f/117fea76b8548f37f76826cbce04b3e50334fe8e.jpg", url: "https://www2.hm.com/en_us/productpage.1318375002.html", gender: "women", category: "outerwear"},
+  {name: "PLEATED WIDE LEG PANTS", price: 59.9, site: "Zara", image: "https://static.zara.net/assets/public/70fd/c96e/53de417b90f8/1eb36dfc96a6/01478593251-p/01478593251-p.jpg?ts=1772714950533&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "lower_body"},
+  {name: "ELASTIC WAIST BALLOON PANTS", price: 49.9, site: "Zara", image: "https://static.zara.net/assets/public/4726/ae26/24334b38964f/48cfb26059ea/08372041701-p/08372041701-p.jpg?ts=1777017831553&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "lower_body"},
+  {name: "ELASTIC WAIST PANTS", price: 49.9, site: "Zara", image: "https://static.zara.net/assets/public/8768/f2de/6aaf4c159a50/358e2b85520a/04745029712-p/04745029712-p.jpg?ts=1776870932638&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "lower_body"},
+  {name: "LINEN BLEND STRAIGHT LEG PANTS", price: 49.9, site: "Zara", image: "https://static.zara.net/assets/public/5e92/7584/d21745c29679/059c2d0f8885/09929141800-p/09929141800-p.jpg?ts=1775064553372&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "lower_body"},
+  {name: "PLAID PEPLUM BLAZER ZW COLLECTION", price: 169, site: "Zara", image: "https://static.zara.net/assets/public/6cba/42f0/78694933af0d/2db91991a580/02727906600-p/02727906600-p.jpg?ts=1777035506031&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "outerwear"},
+  {name: "BEADED BALLOON HALTER TOP", price: 45.9, site: "Zara", image: "https://static.zara.net/assets/public/c12d/8733/8d8a46a3b405/092437d7db55/04745028712-p/04745028712-p.jpg?ts=1776870930990&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "upper_body"},
+  {name: "BALLOON PANTS", price: 45.9, site: "Zara", image: "https://static.zara.net/assets/public/1e20/5fb3/59dc4c35a6bc/14c781e27da1/08417152401-p/08417152401-p.jpg?ts=1772715440408&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "lower_body"},
+  {name: "KNIT TOP WITH VOLUME SLEEVES", price: 49.9, site: "Zara", image: "https://static.zara.net/assets/public/be77/d041/19c644e195fc/21c8074f0969/03456009715-p/03456009715-p.jpg?ts=1772543805173&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "upper_body"},
+  {name: "BEADED PRINT HALTER DRESS", price: 69.9, site: "Zara", image: "https://static.zara.net/assets/public/459d/333b/7b36470bafa1/45056a3afb9a/07200303050-p/07200303050-p.jpg?ts=1777030588187&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "dress"},
+  {name: "ZW COLLECTION FAUX LEATHER BELTED JACKET", price: 129, site: "Zara", image: "https://static.zara.net/assets/public/a24e/4100/8b164b3cbd35/9da6777ad27f/03548056716-p/03548056716-p.jpg?ts=1777035505094&w=500", url: "https://www.zara.com/us/en/search?searchTerm=new&section=WOMAN", gender: "women", category: "outerwear"}
+];
         
         function getRandomOutfit() {
-            const randomIndex = Math.floor(Math.random() * scrapeProducts.length);
-            return scrapeProducts[randomIndex];
-        }
+    const gender = document.getElementById('gender').value;
+    const filtered = scrapeProducts.filter(p => p.gender === gender);
+    return filtered.sort(() => 0.5 - Math.random()).slice(0, 4);
+}
         
         async function fetchProducts() {
-            try {
-                const response = await fetch('products.json');
-                const allProducts = await response.json();
-                const upperBody = allProducts.filter(p => p.category === 'upper_body');
-                const lowerBody = allProducts.filter(p => p.category === 'lower_body');
-                const shuffledUpper = upperBody.sort(() => 0.5 - Math.random()).slice(0, 2);
-                const shuffledLower = lowerBody.sort(() => 0.5 - Math.random()).slice(0, 2);
-                return [...shuffledUpper, ...shuffledLower];
-            } catch (e) {
-                console.log("products.json not available, using fallback");
-                return getRandomOutfit();
-            }
-        }
+    const gender = document.getElementById('gender').value;
+    const filtered = scrapeProducts.filter(p => p.gender === gender);
+    const upperBody = filtered.filter(p => p.category === 'upper_body');
+    const lowerBody = filtered.filter(p => p.category === 'lower_body');
+    const dresses = filtered.filter(p => p.category === 'dress');
+    
+    if (gender === 'women') {
+        const shuffledDresses = dresses.sort(() => 0.5 - Math.random()).slice(0, 2);
+        const shuffledUpper = upperBody.sort(() => 0.5 - Math.random()).slice(0, 2);
+        const shuffledLower = lowerBody.sort(() => 0.5 - Math.random()).slice(0, 2);
+        return [...shuffledDresses, ...shuffledUpper.slice(0, 1), ...shuffledLower.slice(0, 2)];
+    } else {
+        const shuffledUpper = upperBody.sort(() => 0.5 - Math.random()).slice(0, 2);
+        const shuffledLower = lowerBody.sort(() => 0.5 - Math.random()).slice(0, 2);
+        return [...shuffledUpper, ...shuffledLower];
+    }
+}
         
         function getSiteClass(site) {
             return 'source-tag ' + site.toLowerCase().replace('.', '');
